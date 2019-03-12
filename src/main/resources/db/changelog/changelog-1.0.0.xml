@@ -30,7 +30,7 @@
         <!--CREATE TABLE conversation-->
         <createTable tableName="conversation">
             <column name="id" type="serial">
-                <constraints uniqueConstraintName="conversation_uniq_id" unique="true" nullable="false"/>
+                <constraints primaryKeyName="conversation_uniq_id" primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)"/>
             <column name="create_date" type="timestamp">

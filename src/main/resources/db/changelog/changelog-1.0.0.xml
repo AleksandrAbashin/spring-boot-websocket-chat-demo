@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="108" author="Aleksandr">
+
+       <!-- <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="usr"/>
+                <tableExists tableName="conversation"/>
+                <tableExists tableName="message"/>
+                <tableExists tableName="usr_conversation"/>
+            </not>
+        </preConditions>
+-->
+        <!--CREATE TABLE usr-->
+        <createTable tableName="usr">
+            <column name="id" type="serial">
+                <constraints primaryKeyName="usr_primary_id" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!--CREATE TABLE conversation-->
+        <createTable tableName="conversation">
+            <column name="id" type="serial">
+                <constraints uniqueConstraintName="conversation_uniq_id" unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!--CREATE TABLE message-->
+        <createTable tableName="message">
+            <column name="id" type="serial">
+                <constraints primaryKey="false" nullable="false"/>
+            </column>
+            <column name="content" type="varchar(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_create" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="usr_id" type="serial">
+                <constraints nullable="false"
+                             foreignKeyName="usr_id_fk"
+                             referencedTableName="usr"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="conversation_id" type="serial">
+                <constraints nullable="false"
+                             foreignKeyName="conversation_id_fk"
+                             referencedTableName="conversation"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+
+        <!--CREATE TABLE usr_conversation-->
+        <createTable tableName="usr_conversation">
+            <column name="usr_id" type="serial">
+                <constraints nullable="false"
+                             foreignKeyName="usr_conversation_id_fk"
+                             referencedTableName="conversation"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="conversation_id" type="serial">
+                <constraints nullable="false"
+                             foreignKeyName="conversation_usr_id_fk"
+                             referencedTableName="usr"
+                             referencedColumnNames="id"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

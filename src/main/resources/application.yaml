@@ -1,0 +1,10 @@
+#spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/aleks
+    username: postgres
+    password: perec1987
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
